@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: test-appconfig-reader1
-  title: Test AppConfig Reader (Prism)1
+  name: test-appconfig-reader2
+  title: Test AppConfig Reader (Prism)2
 spec:
   owner: user:default/guest
   type: service
@@ -15,7 +15,7 @@ spec:
       action: appconfig:read
       input:
         configPath: prism
-        keys: [env, name, checking, environments]
+        keys: [env, name, Checking, environments]
         required: [env]
 
     - id: show_values
@@ -25,7 +25,7 @@ spec:
         message: |
           env       = ${{ steps.read_prism.output.env }}
           name      = ${{ steps.read_prism.output.name }}
-          Checking  = ${{ steps.read_prism.output.checking }}
+          Checking  = ${{ steps.read_prism.output.Checking }}
           webhook   = ${{ steps.read_prism.output.environments[steps.read_prism.output.env].orchestratorWebhook }}
 
     # Example of using the webhook dynamically (dummy step)
