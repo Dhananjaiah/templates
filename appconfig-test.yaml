@@ -22,4 +22,5 @@ spec:
       input:
         message: |
           env = ${{ steps.read_envs.output.env }}
+          name =  ${{ steps.read_envs.output.name }}
           webhook = ${{ steps.read_envs.output.environments[steps.read_envs.output.env].orchestratorWebhook }}
