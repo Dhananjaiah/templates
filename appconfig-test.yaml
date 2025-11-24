@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: test-appconfig-reader
-  title: Test AppConfig Reader (Prism)
+  name: test-appconfig-reader1
+  title: Test AppConfig Reader (Prism)1
 spec:
   owner: user:default/guest
   type: service
