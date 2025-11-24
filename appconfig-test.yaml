@@ -2,25 +2,37 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: test-appconfig-reader
-  title: Test AppConfig Reader
+  title: Test AppConfig Reader (Prism)
 spec:
   owner: user:default/guest
   type: service
+
   parameters: []
+
   steps:
-    - id: read_envs
-      name: Read app-config
+    - id: read_prism
+      name: Read prism config from app-config
       action: appconfig:read
       input:
-        configPath: prism          # root path in app-config
-        keys: [env, environments]  # what to pull out
+        configPath: prism
+        keys: [env, name, checking, environments]
         required: [env]
 
-    - id: pick_env
-      name: Pick env webhook
+    - id: show_values
+      name: Show what we read
       action: debug:log
       input:
         message: |
-          env = ${{ steps.read_envs.output.env }}
-          name =  ${{ steps.read_envs.output.name }}
-          webhook = ${{ steps.read_envs.output.environments[steps.read_envs.output.env].orchestratorWebhook }}
+          env       = ${{ steps.read_prism.output.env }}
+          name      = ${{ steps.read_prism.output.name }}
+          checking  = ${{ steps.read_prism.output.checking }}
+          webhook   = ${{ steps.read_prism.output.environments[steps.read_prism.output.env].orchestratorWebhook }}
+
+    # Example of using the webhook dynamically (dummy step)
+    - id: use_webhook
+      name: Use env-specific webhook
+      action: debug:log
+      input:
+        message: |
+          I will call this webhook in real template:
+          ${{ steps.read_prism.output.environments[steps.read_prism.output.env].orchestratorWebhook }}
