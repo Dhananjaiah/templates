@@ -1,0 +1,25 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: test-appconfig-reader
+  title: Test AppConfig Reader
+spec:
+  owner: user:default/guest
+  type: service
+  parameters: []
+  steps:
+    - id: read_envs
+      name: Read app-config
+      action: appconfig:read
+      input:
+        configPath: prism          # root path in app-config
+        keys: [env, environments]  # what to pull out
+        required: [env]
+
+    - id: pick_env
+      name: Pick env webhook
+      action: debug:log
+      input:
+        message: |
+          env = ${{ steps.read_envs.output.env }}
+          webhook = ${{ steps.read_envs.output.environments[steps.read_envs.output.env].orchestratorWebhook }}
