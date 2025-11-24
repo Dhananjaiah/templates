@@ -25,7 +25,7 @@ spec:
         message: |
           env       = ${{ steps.read_prism.output.env }}
           name      = ${{ steps.read_prism.output.name }}
-          checking  = ${{ steps.read_prism.output.checking }}
+          Checking  = ${{ steps.read_prism.output.checking }}
           webhook   = ${{ steps.read_prism.output.environments[steps.read_prism.output.env].orchestratorWebhook }}
 
     # Example of using the webhook dynamically (dummy step)
